@@ -15,6 +15,10 @@ int direction = 1; // 1: right, 2: down, 3: left, 4: up
 
 //int foodX, foodY;
 
+void MENU()
+{
+	
+}
 
 // here we draw snake
  void draw_snake()
@@ -24,6 +28,7 @@ int direction = 1; // 1: right, 2: down, 3: left, 4: up
         cout<<snakeX[i]<<" "<<snakeY[i]<<" "<<snakeX[i] + size<<" "<<snakeY[i] + size<<endl;
     }
 }
+
 
 
 // main 
