@@ -17,15 +17,22 @@ int direction = 1; // 1: right, 2: down, 3: left, 4: up
 
 void MENU()
 {
+     cleardevice();
+     //setcolor(RED);
+	settextstyle(EUROPEAN_FONT,HORIZ_DIR,4);
+	outtextxy(200,200,"press any key to continue");
 	
+getch();
 }
+
+
 
 // here we draw snake
  void draw_snake()
  {
  	for (int i = 0; i < length; i++) {
         rectangle(snakeX[i], snakeY[i], snakeX[i] + size, snakeY[i] + size);    
-        cout<<snakeX[i]<<" "<<snakeY[i]<<" "<<snakeX[i] + size<<" "<<snakeY[i] + size<<endl;
+    
     }
 }
 
@@ -40,7 +47,7 @@ int main() {
     snakeX[0] = 100;
     snakeY[0] = 100;
     
-    
+ //   MENU();
     
     while(1){
     	    	cleardevice();
