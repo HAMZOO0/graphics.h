@@ -1,73 +1,111 @@
-#include<iostream>
-#include<graphics.h>
-#include<conio.h>
+#include <iostream>
+#include <conio.h>
+#include <graphics.h>
+
 using namespace std;
 
-const int MAX_SEGMENTS = 10;
 
-struct SnakeSegment {
-    int x, y;
-};
-const int screenWidth = 800;
-const int screenHeight = 600;
-int foodX , foodY ; 
+const int size = 20; // size of snake body block 
+
+int snakeX[100], snakeY[100]; // we use array for snake bcz it incr its length 
+
+int length = 2; // default length 
+
+int direction = 1; // 1: right, 2: down, 3: left, 4: up 
+
+//int foodX, foodY;
 
 
-void generateFood() 
-{
-    foodX = (5465465 % screenWidth) ;
-    foodY = (45645564556% screenHeight) ;
-    
-    rectangle(foodX, foodY, foodX + 20, foodY + 20);
+// here we draw snake
+ void draw_snake()
+ {
+ 	for (int i = 0; i < length; i++) {
+        rectangle(snakeX[i], snakeY[i], snakeX[i] + size, snakeY[i] + size);    
+        cout<<snakeX[i]<<" "<<snakeY[i]<<" "<<snakeX[i] + size<<" "<<snakeY[i] + size<<endl;
+    }
 }
 
 
+// main 
 int main() {
-    initwindow(screenWidth, screenHeight, "SNAKE.CPP");
-    setbkcolor(GREEN);
-    cleardevice();
+   initwindow(800,600,"$"); // main window size 
+    setbkcolor(GREEN); // window color 
+
+    // Initialize snake position (head position )
+    snakeX[0] = 100;
+    snakeY[0] = 100;
     
     
-    setcolor(RED);
-	setfillstyle( SOLID_FILL, RED); // this is function to fill a RED colour inside the box  
+    
+    while(1){
+    	    	cleardevice();
+    	    	    rectangle(10,10,780,500);
 
-    SnakeSegment snake[MAX_SEGMENTS] = { {60,60},{80,60},{100,60} };
-
-    while (1) {
-    	
-        cleardevice();
-         generateFood() ;
-        // Draw and fill the snake segments
-        for (int i = 0; i < MAX_SEGMENTS; ++i) {
-            rectangle(snake[i].x, snake[i].y, snake[i].x + 20, snake[i].y + 20);
-            floodfill(snake[i].x + 10, snake[i].y + 10, RED);
+    	if (kbhit()) {
+            char key = getch();
+            switch (key) {
+                case 'a':
+                    direction = 3;
+                    break;
+                case 'd':
+                    direction = 1;
+                    break;
+                case 'w':
+                    direction = 4;
+                    break;
+                case 's':
+                    direction = 2;
+                    break;
+            }
         }
 
-        // Check the direction and move the entire snake
-        for (int i = MAX_SEGMENTS - 1; i > 0; --i) {
-            snake[i].x = snake[i - 1].x;
-            snake[i].y = snake[i - 1].y;
+//         Move the snake        previs block pos to new 
+        for (int i = length - 1; i > 0; i--) {
+            snakeX[i] = snakeX[i - 1];
+            snakeY[i] = snakeY[i - 1];
         }
 
-        if (GetAsyncKeyState(VK_RIGHT)) {
-            snake[0].x += 20; // right 
+        switch (direction) {
+            case 1:
+                snakeX[0] += size;
+                break;
+            case 2:
+                snakeY[0] += size;
+                break;
+            case 3:
+                snakeX[0] -= size;
+                break;
+            case 4:
+                snakeY[0] -= size;
+                break;
         }
-        else if (GetAsyncKeyState(VK_LEFT)) {
-            snake[0].x -= 20;//left
-        }
-        else if (GetAsyncKeyState(VK_UP)) {
-            snake[0].y -= 20;//down
-        }
-        else if (GetAsyncKeyState(VK_DOWN)) {
-            snake[0].y += 20; //up
-       }
-       
-
-        delay(60);
-    }
-
-    getch();
+        
+        // WAll collison 
+	if(snakeX[0] >= 780 || snakeX[0]<= 10 || snakeY[0] >= 500 || snakeY[0]  < 10  )
+	{
+	setcolor(RED);
+	settextstyle(DEFAULT_FONT,HORIZ_DIR,4);
+	outtextxy(200,200,"GAME OVER");
+	delay(2000);
+	closegraph();
+	break;
+/*
+Condition (snakeX[0] >= WIDTH || snakeX[0] < 0 || snakeY[0] >= HEIGHT || snakeY[0] < 0):
+snakeX[0] >= WIDTH: Checks if the head of the snake has moved beyond the right edge of the window.
+snakeX[0] < 0: Checks if the head of the snake has moved beyond the left edge of the window.
+snakeY[0] >= HEIGHT: Checks if the head of the snake has moved beyond the bottom edge of the window.
+snakeY[0] < 0: Checks if the head of the snake has moved beyond the top edge of the window.
+*/
+}
+	
+draw_snake();
+delay(50);
+}
     closegraph();
-
     return 0;
 }
+//500 480 520 500
+//480 480 500 500
+//520 480 540 500
+//500 480 520 500
+//540 480 560 500
