@@ -1,8 +1,11 @@
 #include <iostream>
 #include <conio.h>
 #include <graphics.h>
-
+#include  <string>
 using namespace std;
+
+
+// ----------------------------------- Global Varbales -------------------------------------------------
 
 const int ScreenWidth = 800, ScreenHeight = 600;
 
@@ -16,6 +19,10 @@ int direction = 1; // 1: right, 2: down, 3: left, 4: up
 
 int foodX, foodY;
 
+
+
+// ----------------------------------------Functions---------------------------------------------------------
+
 // Main menu
 void MENU()
 {
@@ -25,29 +32,45 @@ void MENU()
     getch();
 }
 
+
 // Draw the snake
 void draw_snake()
 {
+    setfillstyle(SOLID_FILL, RED); // Set fill style to solid and color to red
+
     for (int i = 0; i < length; i++)
-    {
+    {    
         rectangle(snakeX[i], snakeY[i], snakeX[i] + size, snakeY[i] + size);
+        floodfill(snakeX[i] + 1, snakeY[i] + 1, RED); // Fill the rectangle with red
     }
 }
+
 
 // Generate food rendering
 void GenerateFood()
 {
     // Set a random location for the food box on the x-y axis
-    foodX = rand() % (600/size)*size;
-    foodY = rand() % (450/size)*size;
+    foodX = rand() % (600 / size) * size;
+    foodY = rand() % (450 / size) * size;
+
     rectangle(foodX, foodY, foodX + size, foodY + size);
 }
 
-// Main function
+//void Point_system()
+//{//   char a = length ; 
+//         	setcolor(RED);
+//            settextstyle(DEFAULT_FONT, HORIZ_DIR, 3);
+//            outtextxy(20,550,&a);
+//            delay(2000);
+//            
+//}
+
+
+// Main function -------------------------------------------------------------------------------------
 int main()
 {
     initwindow(ScreenWidth, ScreenHeight, "Snake Game"); // Set the main window size
-    setbkcolor(GREEN);                                      // Set window color
+    setbkcolor(CYAN);                                      // Set window color
 
     // Initialize snake position (head position)
     snakeX[0] = 100;
@@ -60,6 +83,8 @@ int main()
     {
         cleardevice();
         rectangle(10, 10, 780, 500);
+                
+
 
         if (kbhit())
         {
@@ -102,7 +127,8 @@ int main()
         case 4:
             snakeY[0] -= size;
             break;
-        }
+        }  
+
 
         // Wall collision
         if (snakeX[0] >= 780 || snakeX[0] <= 10 || snakeY[0] >= 500 || snakeY[0] < 10)
@@ -121,11 +147,14 @@ int main()
 		  length++;
 	}
 	
+	
         rectangle(foodX, foodY, foodX + size, foodY + size); // food gernate
 
         draw_snake(); // snake draw
-        delay(200);
-    } // close loo
+
+        delay(550);
+        
+    } // close loop
 
     closegraph();
     return 0;
