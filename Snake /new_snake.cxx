@@ -155,7 +155,24 @@ int main()
 
  
 }
-	
+
+
+// snake collion 
+for (int i = 1; i < length -1 ; i++)
+        {
+            if (snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]  )
+            {
+            	setcolor(RED);
+            settextstyle(DEFAULT_FONT, HORIZ_DIR, 4);
+            outtextxy(200, 200, "GAME OVER");
+            delay(2000);
+            closegraph();
+            break;
+            	
+			}
+        }
+
+
         rectangle(foodX, foodY, foodX + size, foodY + size); // food gernate
 
         draw_snake(); // snake draw
