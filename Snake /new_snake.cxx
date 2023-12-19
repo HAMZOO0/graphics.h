@@ -96,17 +96,42 @@ int main()
             char key = getch();
             switch (key)
             {
+            	
             case 'a':
-                direction = 3;
+            	if(direction == 1 )
+            	{
+				direction = 1 ;
+            	 break;
+				}
+                direction = 3;            // a --> 3 // left 
                 break;
+                
             case 'd':
-                direction = 1;
+            	if(direction == 3 )
+            	{
+				direction = 3 ;
+            	 break;
+				}
+                direction = 1;           // d --> 1 // right  
                 break;
+                
             case 'w':
-                direction = 4;
+            	if(direction == 2 )
+            	{
+				direction = 2 ;
+            	 break;
+				}
+                direction = 4;                 // w --> 4 //  up   
                 break;
+                
             case 's':
-                direction = 2;
+            	
+            	if(direction == 4 )
+            	{
+				direction = 4 ;
+            	 break;
+				}
+                direction = 2;                           // s --> 4 //   down     
                 break;
             }
         }
