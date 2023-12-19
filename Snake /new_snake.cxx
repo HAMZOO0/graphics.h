@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 #include <conio.h>
 #include <graphics.h>
@@ -6,11 +7,11 @@
 using namespace std;
 
 
-// ----------------------------------- Global Varbales -------------------------------------------------
+// ----------------------------------- Global variables -------------------------------------------------
 
 const int ScreenWidth = 800, ScreenHeight = 600;
 
-const int size = 20; // size of snake body block
+const int size = 10; // size of snake body block
 
 int snakeX[100], snakeY[100]; // using an array for snake because it increases in length
 
@@ -57,17 +58,6 @@ void GenerateFood()
 
     rectangle(foodX, foodY, foodX + size, foodY + size); // Draw the food box
 }
-
-
-
-//void Point_system()
-//{//   char a = length ; 
-//         	setcolor(RED);
-//            settextstyle(DEFAULT_FONT, HORIZ_DIR, 3);
-//            outtextxy(20,550,&a);
-//            delay(2000);
-//            
-//}
 
 
 // Main function -------------------------------------------------------------------------------------
@@ -172,7 +162,7 @@ int main()
         }
         
         
-	
+	// food collion 
 	if (snakeX[0] == foodX && snakeY[0] == foodY)
 {
     GenerateFood();
